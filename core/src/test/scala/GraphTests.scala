@@ -164,5 +164,12 @@ object GraphTests extends Properties("Graph") {
 
   import GDecomp._
   //FIXME: get scalaz to work with scalacheck
-//  include(comonad.laws[({type λ[α] = GDecomp[Int,α,Int]})#λ], "GDecomp is a lawful comonad")
+  // val p = new Properties("comonad")
+  // p.include(cobind.laws[({type λ[α] = GDecomp[Int,α,Int]})#λ])
+  // p.include(functor.laws[({type λ[α] = GDecomp[Int,α,Int]})#λ])
+  // p.property("cobind associative") = cobind.cobindAssociative[({type λ[α] = GDecomp[Int,α,Int]})#λ, Int, Int, Int, Int]
+  // p.property("cobind left identity") = comonad.cobindLeftIdentity[({type λ[α] = GDecomp[Int,α,Int]})#λ, Int]
+  // p.property("cobind left identity") = comonad.cobindRightIdentity[({type λ[α] = GDecomp[Int,α,Int]})#λ, Int, Int]
+  // include(p, "GDecomp is a lawful comonad")
+  include(comonad.laws[({type λ[α] = GDecomp[Int,α,Int]})#λ], "GDecomp is a lawful comonad")
 }
