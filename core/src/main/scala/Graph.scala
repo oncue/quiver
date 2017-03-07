@@ -19,6 +19,7 @@ package quiver
 
 import compatibility._
 
+import scala.collection.mutable
 import scalaz._
 import scalaz.syntax.std.map._
 import scalaz.syntax.monoid._
@@ -967,6 +968,35 @@ case class Graph[N,A,B](rep: GraphRep[N,A,B]) {
    * @group classification
    */
   def isSimple: Boolean = !hasMulti && !hasLoop
+
+  /**
+    * Check whether this graph is a tree. In a tree, all nodes can be reached from one node with only one path
+    *
+    **/
+  def isTree: Boolean =
+  {
+    val nNodes = countNodes
+    edges.size + 1 == nNodes && reachable(roots.head).size == nNodes
+  }
+
+  /**
+    * List nodes of the tree in pre-order
+    *
+    */
+  def flatten: Vector[N] = {
+    if(!isTree) Vector()
+    else if (countNodes == 1) nodes
+    else{
+      var res = Vector[N]()
+      val stck = mutable.Stack(roots.head)
+      while(stck.nonEmpty){
+        val nde = stck.pop
+        res ++= Vector(nde)
+        stck.pushAll(successors(nde))
+      }
+      res
+    }
+  }
 
   override def toString: String =
     nodes.foldLeft("") { (s, n) => decomp(n) match {
