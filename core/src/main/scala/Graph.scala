@@ -997,6 +997,10 @@ case class Graph[N,A,B](rep: GraphRep[N,A,B]) {
       res
     }
   }
+  def subtree(n : N): Graph[N,A,B] = {
+    if(isTree) {subgraph(reachable(n))}
+    else quiver.empty[N,A,B]
+  }
 
   override def toString: String =
     nodes.foldLeft("") { (s, n) => decomp(n) match {
@@ -1008,4 +1012,5 @@ case class Graph[N,A,B](rep: GraphRep[N,A,B]) {
     }}
 
 }
+
 
