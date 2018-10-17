@@ -1,7 +1,0 @@
-name: Quiver
-highlighter: rouge
-baseurl: "/quiver/"
-github:
-  domain: "https://github.com"
-  repo: "/oncue/quiver"
-apiurl: "/quiver/api"
